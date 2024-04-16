@@ -6,7 +6,7 @@ public interface IHashTable<T> {
     void delete(T key);
     boolean search(T key);
 
-    boolean batchInsert(String[] keys);
+    boolean batchInsert(T[] keys);
 
-    boolean batchDelete(String[] keys);
+    boolean batchDelete(T[] keys);
 }

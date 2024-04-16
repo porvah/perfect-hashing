@@ -20,12 +20,12 @@ public class HashTableWithNSpace<T> implements IHashTable{
     }
 
     @Override
-    public boolean batchInsert(String[] keys) {
+    public boolean batchInsert(Object[] keys) {
         return false;
     }
 
     @Override
-    public boolean batchDelete(String[] keys) {
+    public boolean batchDelete(Object[] keys) {
         return false;
     }
 }
