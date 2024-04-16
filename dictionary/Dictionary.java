@@ -22,17 +22,11 @@ public class Dictionary {
     }
 
     public boolean batchInsert(String[] keys) {
-        for (String key : keys) {
-            hashTable.insert(key);
-        }
-        return true;
+        return hashTable.batchInsert(keys);
     }
 
     public boolean batchDelete(String[] keys) {
-        for (String key : keys) {
-            hashTable.delete(key);
-        }
-        return true;
+        return hashTable.batchDelete(keys);
     }
 
 

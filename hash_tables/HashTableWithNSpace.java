@@ -18,4 +18,14 @@ public class HashTableWithNSpace<T> implements IHashTable{
     public boolean search(Object key) {
         return false;
     }
+
+    @Override
+    public boolean batchInsert(String[] keys) {
+        return false;
+    }
+
+    @Override
+    public boolean batchDelete(String[] keys) {
+        return false;
+    }
 }
