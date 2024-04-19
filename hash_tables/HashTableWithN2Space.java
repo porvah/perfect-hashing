@@ -17,7 +17,7 @@ public class HashTableWithN2Space<T> implements IHashTable{
         elements = 0;
         size = 2*n*n;
         table = new ArrayList<T>(size);
-        table.set(size-1, null);
+        for( int i = 0; i < size; i++) table.add(null);
         matrix = new Matrix(size);
         hashCount = 1;
     }
@@ -66,7 +66,7 @@ public class HashTableWithN2Space<T> implements IHashTable{
             collision = false;
             matrix = new Matrix(size);
             ArrayList<T> newTable = new ArrayList<>(size);
-            newTable.set(size - 1, null);
+            for(int i = 0; i < size; i++) newTable.add(null);
             newElementsCount = 0;
             for (T t : table) { //adding original table elements to the new table
                 if (t != null) {
