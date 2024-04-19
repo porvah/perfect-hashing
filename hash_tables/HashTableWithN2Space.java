@@ -21,7 +21,9 @@ public class HashTableWithN2Space<T> implements IHashTable{
         matrix = new Matrix(size);
         hashCount = 1;
     }
-
+    public int getSize(){ return size;}
+    public int getN(){return elements;}
+    public int getHashCount(){ return hashCount;}
     @Override
     public boolean insert(Object key) {
         int index = matrix.getIndex(key) % size;
@@ -66,26 +68,26 @@ public class HashTableWithN2Space<T> implements IHashTable{
             ArrayList<T> newTable = new ArrayList<>(size);
             newTable.set(size - 1, null);
             newElementsCount = 0;
-            for(int i = 0; i < table.size(); i++){ //adding original table elements to the new table
-                if(table.get(i) != null){
-                    int index = matrix.getIndex(table.get(i)) % size;
-                    if(newTable.get(index) == null){ //empty slot -> add
-                        newTable.set(index, table.get(i));
+            for (T t : table) { //adding original table elements to the new table
+                if (t != null) {
+                    int index = matrix.getIndex(t) % size;
+                    if (newTable.get(index) == null) { //empty slot -> add
+                        newTable.set(index, t);
                         newElementsCount++;
-                    }else{ //collision -> rehash
+                    } else { //collision -> rehash
                         collision = true;
                         break;
                     }
                 }
             }
             if(collision) continue;
-            for(int i = 0; i < newElements.size(); i++){ //adding new elements to the new table
-                int index = matrix.getIndex(newElements.get(i))%size;
-                if(newTable.get(index) == null){ // empty slot -> add
-                    newTable.set(index, newElements.get(i));
+            for (T newElement : newElements) { //adding new elements to the new table
+                int index = matrix.getIndex(newElement) % size;
+                if (newTable.get(index) == null) { // empty slot -> add
+                    newTable.set(index, newElement);
                     newElementsCount++;
-                }else{
-                    if(!newElements.get(i).equals(newTable.get(index))){ // non unique(already exits)-> ignore
+                } else {
+                    if (!newElement.equals(newTable.get(index))) { // non unique(already exits)-> ignore
                         //collision happened -> rehash
                         collision = true;
                         break;
@@ -95,9 +97,16 @@ public class HashTableWithN2Space<T> implements IHashTable{
         }
         return newElementsCount - elements;
     }
-//    private void rehash(){
-//
-//    }
+    public ArrayList<T> getValues(){
+        ArrayList<T> values = new ArrayList<>(elements);
+        for(int i = 0; 0 < size; i++){
+            if(table.get(i)!= null){
+                values.add(table.get(i));
+            }
+        }
+        return values;
+    }
+
 
     @Override
     public boolean delete(Object key) {
@@ -114,22 +123,48 @@ public class HashTableWithN2Space<T> implements IHashTable{
     public boolean search(Object key) {
         int index = matrix.getIndex(key) % size;
         if(table.get(index) != null) {
-            if(key.equals(table.get(index))) return true;
+            return key.equals(table.get(index));
         }
         return false;
     }
 
     @Override
     public int batchInsert(Object[] keys) {
-        return 0;
+        int noOfInserts = keys.length;
+        int elementsBefore = elements;
+        boolean collision = false;
+        for(Object key : keys){
+            int index = matrix.getIndex(key) % size;
+            if(table.get(index) == null){
+                table.set(index, (T)key);
+            }else if(!table.get(index).equals(key)){
+                //collision
+                collision = true;
+                break;
+            } // else ignore
+        }
+        if(collision){
+            ArrayList<T> elementsTobeAdded = new ArrayList<>(noOfInserts);
+            for(Object key : keys) elementsTobeAdded.add((T)key);
+            if((elementsBefore + noOfInserts) > n){
+                //rehash with new size
+
+                rehashWithNewSize(elementsTobeAdded);
+            }else{
+                // rehash with same size
+                rehashSameSize(elementsTobeAdded);
+            }
+        }
+        int elementsAfter = elements;
+        return noOfInserts - (elementsAfter - elementsBefore);
     }
 
     @Override
     public int batchDelete(Object[] keys) {
         int successful = 0;
-        for(int i = 0; i < keys.length; i++){
-            boolean success = delete(keys[i]);
-            if(success) successful++;
+        for (Object key : keys) {
+            boolean success = delete(key);
+            if (success) successful++;
         }
         return successful;
     }
