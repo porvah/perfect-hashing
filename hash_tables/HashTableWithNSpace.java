@@ -1,18 +1,20 @@
 package hash_tables;
 
-public class HashTableWithNSpace<T> implements IHashTable {
+import java.util.ArrayList;
+
+public class HashTableWithNSpace<T> implements IHashTable<T> {
 
     // Fields HERE
     private HashTableWithN2Space<T>[] table;
     private Matrix matrix;
-    private int hashCount;
+    private int hash_count;
     private int max_size;
     private int cur_size;
 
     public HashTableWithNSpace() {
         cur_size = 0;
         max_size = 10;
-        hashCount = 0;
+        hash_count = 0;
         matrix = new Matrix(max_size);
         table = new HashTableWithN2Space[max_size];
     }
@@ -25,9 +27,12 @@ public class HashTableWithNSpace<T> implements IHashTable {
             table[index] = new HashTableWithN2Space<>();
         }
 
+        hash_count -= table[index].hashCount;
         boolean res = table[index].insert(key);
+        hash_count += table[index].hashCount;
+
         if (needs_to_rehash())
-            rehash();
+            hash(getValues().toArray());
 
         return res;
     }
@@ -50,7 +55,14 @@ public class HashTableWithNSpace<T> implements IHashTable {
 
     @Override
     public int batchInsert(Object[] keys) {
-        return 0;
+        var values = getValues();
+        for (var key : keys)
+            values.add((T) key);
+
+        hash(values.toArray());
+
+        int unique_values = getValues().size();
+        return keys.length - (values.size() - unique_values);
     }
 
     @Override
@@ -62,11 +74,42 @@ public class HashTableWithNSpace<T> implements IHashTable {
         return deleted_items;
     }
 
-    private boolean needs_to_rehash() {
-        return (1.0 * cur_size / max_size) >= 0.5;
+    private ArrayList<T> getValues() {
+        ArrayList<T> values = new ArrayList<>();
+        for (int i = 0; i < max_size; ++i) {
+            if (table[i] != null)
+                values.addAll(table[i].getValues());
+        }
+        return values;
     }
 
-    private void rehash() {
+    private void hash(Object[] keys) {
+        cur_size = 0;
+        max_size = keys.length * 3;
+        matrix = new Matrix(max_size);
+        table = new HashTableWithN2Space[max_size];
+        hash_count++;
 
+        ArrayList<Object>[] freq_arr = new ArrayList[max_size];
+        for (var key : keys) {
+            int index = matrix.getIndex(key) % max_size;
+            if (freq_arr[index] == null)
+                freq_arr[index] = new ArrayList<>();
+            freq_arr[index].add(key);
+        }
+
+        for (int i = 0; i < max_size; ++i) {
+            if (freq_arr[i] != null) {
+                cur_size++;
+                Object[] cur_arr = freq_arr[i].toArray();
+                table[i] = new HashTableWithN2Space<>();
+                table[i].batchInsert(cur_arr);
+                hash_count += table[i].hashCount;
+            }
+        }
+    }
+
+    private boolean needs_to_rehash() {
+        return (1.0 * cur_size / max_size) >= 0.5;
     }
 }
