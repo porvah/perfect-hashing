@@ -34,12 +34,18 @@ public class HashTableWithNSpace<T> implements IHashTable {
 
     @Override
     public boolean delete(Object key) {
-        return false;
+        int index = matrix.getIndex(key) % max_size;
+        if (table[index] == null)
+            return false;
+        return table[index].delete(key);
     }
 
     @Override
     public boolean search(Object key) {
-        return false;
+        int index = matrix.getIndex(key) % max_size;
+        if (table[index] == null)
+            return false;
+        return table[index].search(key);
     }
 
     @Override
@@ -49,7 +55,11 @@ public class HashTableWithNSpace<T> implements IHashTable {
 
     @Override
     public int batchDelete(Object[] keys) {
-        return 0;
+        int deleted_items = 0;
+        for (Object key : keys)
+            if (delete(key))
+                deleted_items++;
+        return deleted_items;
     }
 
     private boolean needs_to_rehash() {
