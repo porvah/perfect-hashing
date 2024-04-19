@@ -60,12 +60,13 @@ public class HashTableWithN2Space<T> implements IHashTable{
     private int rehashSameSize(ArrayList<T> newElements){
         int newElementsCount = 0;
         boolean collision = true;
+        ArrayList<T> newTable = new ArrayList<>(size);
         while(collision) {
             hashCount++;
             // setting up a new table
             collision = false;
             matrix = new Matrix(size);
-            ArrayList<T> newTable = new ArrayList<>(size);
+            newTable = new ArrayList<>(size);
             for(int i = 0; i < size; i++) newTable.add(null);
             newElementsCount = 0;
             for (T t : table) { //adding original table elements to the new table
@@ -95,11 +96,14 @@ public class HashTableWithN2Space<T> implements IHashTable{
                 }
             }
         }
-        return newElementsCount - elements;
+        table = newTable;
+        int addedElements = newElementsCount - elements;
+        elements = newElementsCount;
+        return addedElements;
     }
     public ArrayList<T> getValues(){
         ArrayList<T> values = new ArrayList<>(elements);
-        for(int i = 0; 0 < size; i++){
+        for(int i = 0; i < size; i++){
             if(table.get(i)!= null){
                 values.add(table.get(i));
             }
