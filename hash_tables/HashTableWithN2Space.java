@@ -32,14 +32,17 @@ public class HashTableWithN2Space<T> implements IHashTable{
         }else{
             if(!key.equals(table.get(index))){
                 //collision occurred
+                ArrayList<T> newElements = new ArrayList<T>();
+                newElements.add((T)key);
+                int addedElements;
                 if(elements+1 > n){
                     //rehash with new sizes
-                    ArrayList<T> newElements = new ArrayList<T>();
-                    newElements.add((T)key);
-                    rehashSameSize(newElements);
+                    addedElements = rehashWithNewSize(newElements);
                 }else{
                     //rehash with the same size
+                    addedElements = rehashSameSize(newElements);
                 }
+                elements = elements+addedElements;
                 return true;
             }else{
                 return false;
@@ -47,32 +50,54 @@ public class HashTableWithN2Space<T> implements IHashTable{
         }
 
     }
-    private void rehashSameSize(ArrayList<T> newElements){
-
+    private int rehashWithNewSize(ArrayList<T> newElements){
+        n = newElements.size() + elements;
+        size = 2*n*n;
+        return rehashSameSize(newElements);
+    }
+    private int rehashSameSize(ArrayList<T> newElements){
+        int newElementsCount = 0;
         boolean collision = true;
         while(collision) {
-            int addedElements = 0;
             hashCount++;
             // setting up a new table
             collision = false;
             matrix = new Matrix(size);
             ArrayList<T> newTable = new ArrayList<>(size);
             newTable.set(size - 1, null);
-            for(int i = 0; i < table.size(); i++){
+            newElementsCount = 0;
+            for(int i = 0; i < table.size(); i++){ //adding original table elements to the new table
                 if(table.get(i) != null){
                     int index = matrix.getIndex(table.get(i)) % size;
-                    Object key = table.get(i);
-                    if(newTable.get(index) == null){
-
+                    if(newTable.get(index) == null){ //empty slot -> add
+                        newTable.set(index, table.get(i));
+                        newElementsCount++;
+                    }else{ //collision -> rehash
+                        collision = true;
+                        break;
                     }
                 }
             }
-            if(collision) break;
+            if(collision) continue;
+            for(int i = 0; i < newElements.size(); i++){ //adding new elements to the new table
+                int index = matrix.getIndex(newElements.get(i))%size;
+                if(newTable.get(index) == null){ // empty slot -> add
+                    newTable.set(index, newElements.get(i));
+                    newElementsCount++;
+                }else{
+                    if(!newElements.get(i).equals(newTable.get(index))){ // non unique(already exits)-> ignore
+                        //collision happened -> rehash
+                        collision = true;
+                        break;
+                    }
+                }
+            }
         }
+        return newElementsCount - elements;
     }
-    private void rehash(){
-
-    }
+//    private void rehash(){
+//
+//    }
 
     @Override
     public boolean delete(Object key) {
@@ -101,6 +126,11 @@ public class HashTableWithN2Space<T> implements IHashTable{
 
     @Override
     public int batchDelete(Object[] keys) {
-        return 0;
+        int successful = 0;
+        for(int i = 0; i < keys.length; i++){
+            boolean success = delete(keys[i]);
+            if(success) successful++;
+        }
+        return successful;
     }
 }
