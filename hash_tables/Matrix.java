@@ -31,8 +31,12 @@ public class Matrix {
             x = decimalToBinary((long)(Character)key);
         else if (key instanceof Long)
             x = decimalToBinary((long)(Long)key);
-        else
+        else if (key instanceof Integer)
             x = decimalToBinary((long)(Integer)key);
+        else if (key instanceof Float)
+            x = decimalToBinary(stringToInt(Float.toString((Float)key)));
+        else
+            x = decimalToBinary(stringToInt(String.valueOf((Double)key)));
         return binaryToDecimal(multiplication(x));
     }
 
@@ -40,7 +44,7 @@ public class Matrix {
     private long stringToInt(String key) {
         long value = 0;
         for (int i = 0; i < key.length(); i++) {
-            value += (long) key.charAt(i) * i;
+            value += (long) key.charAt(i) * (i+1);
         }
         return value;
     }
