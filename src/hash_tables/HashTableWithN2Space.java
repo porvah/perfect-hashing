@@ -12,7 +12,7 @@ public class HashTableWithN2Space<T> implements IHashTable{
     int size;
     int elements;
     int hashCount;
-    HashTableWithN2Space(){
+    public HashTableWithN2Space(){
         n = 10;
         elements = 0;
         size = 2*n*n;
