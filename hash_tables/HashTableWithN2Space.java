@@ -44,7 +44,6 @@ public class HashTableWithN2Space<T> implements IHashTable{
                     //rehash with the same size
                     addedElements = rehashSameSize(newElements);
                 }
-                elements = elements+addedElements;
                 return true;
             }else{
                 return false;
@@ -141,6 +140,7 @@ public class HashTableWithN2Space<T> implements IHashTable{
             int index = matrix.getIndex(key) % size;
             if(table.get(index) == null){
                 table.set(index, (T)key);
+                elements++;
             }else if(!table.get(index).equals(key)){
                 //collision
                 collision = true;
@@ -170,6 +170,7 @@ public class HashTableWithN2Space<T> implements IHashTable{
             boolean success = delete(key);
             if (success) successful++;
         }
+        elements = elements - successful;
         return successful;
     }
 }
