@@ -139,6 +139,12 @@ public class CorrectnessInteger1 {
         assert(res == 0);
     }
 
+    @Test void batchDelete5() {
+        Integer[] keys = KeysReader.getIntegersFromFile("test_files/correctness/integers/test1_batchDelete_withDuplicates.txt");
+        int res = hashTable.batchDelete(keys);
+        assert(res == 2);
+    }
+
 
 
 

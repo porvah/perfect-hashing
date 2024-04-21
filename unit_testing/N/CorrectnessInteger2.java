@@ -22,58 +22,59 @@ public class CorrectnessInteger2 {
         HashTableWithNSpace<Integer> hashTable = new HashTableWithNSpace<>();
         int res = hashTable.batchInsert(keys);
         System.out.println(res);
-        assert(res == 13);
+        assert(res == 9);
     }
 
     @Test
     public void testSearch1() {
-        Integer key = 1;
+        Integer key = 34545654;
         boolean res = hashTable.search(key);
         assert (res);
     }
 
     @Test
     public void testSearch2() {
-        Integer key = 2;
+        Integer key = 1;
         boolean res = hashTable.search(key);
         assert (res);
     }
 
     @Test
     public void testSearch3() {
-        Integer key = 14;
+        Integer key = 13424;
         boolean res = hashTable.search(key);
         assert(!res);
     }
 
     @Test
     public void testSearch4() {
-        Integer key = -2;
+        Integer key = 2526364;
         boolean res = hashTable.search(key);
+        assert(!res);
     }
 
 
     @Test
     public void delete1() {
-        int key = 1;
+        int key = 34545654;
         boolean res = hashTable.delete(key);
         assert(res);
     }
     @Test
     public void delete2() {
-        int key = 13;
+        int key = 1;
         boolean res = hashTable.delete(key);
         assert(res);
     }
     @Test
     public void delete3() {
-        int key = 14;
+        int key = 34545655;
         boolean res = hashTable.delete(key);
         assert(!res);
     }
     @Test
     public void delete4() {
-        int key = -2;
+        int key = 372532;
         boolean res = hashTable.delete(key);
         assert(!res);
     }
@@ -88,17 +89,17 @@ public class CorrectnessInteger2 {
     }
     @Test
     public void insert2() {
-        int key = 14;
+        int key = 2425;
         assert(hashTable.insert(key));
     }
     @Test
     public void insert3() {
-        int key = 13;
+        int key = 34545654;
         assert(!hashTable.insert(key));
     }
     @Test
     public void insert4() {
-        int key = -2;
+        int key = 3;
         assert(hashTable.insert(key));
     }
 
@@ -109,27 +110,35 @@ public class CorrectnessInteger2 {
     @Test
     public void batchDeleteAll() {
         int res = hashTable.batchDelete(keys);
-        assert(res == 13);
+        assert(res == 9);
     }
     @Test
     public void batchDelete1() {
-        Integer[] keys = new Integer[]{1, 5, 3, 7, -4, -122};
+        Integer[] keys = new Integer[]{1, 34545654, 266392, 24642352};
+        int res = hashTable.batchDelete(keys);
+        assert(res == 2);
+    }
+
+    @Test
+    public void batchDelete2() {
+        Integer[] keys = new Integer[]{
+                1,
+                34545654,
+                75476545,
+                43557465
+        };
         int res = hashTable.batchDelete(keys);
         assert(res == 4);
     }
 
     @Test
-    public void batchDelete2() {
-        Integer[] keys = new Integer[]{1, 1, 1, 1};
+    public void batchDelete3() {
+        Integer[] keys = new Integer[]{
+                34545654,
+                34545654
+        };
         int res = hashTable.batchDelete(keys);
         assert(res == 1);
-    }
-
-    @Test
-    public void batchDelete3() {
-        Integer[] keys = new Integer[]{4, 4, 4, 5};
-        int res = hashTable.batchDelete(keys);
-        assert(res == 2);
     }
 
     @Test
@@ -139,6 +148,12 @@ public class CorrectnessInteger2 {
         assert(res == 0);
     }
 
+    @Test
+    public void batchDelete5() {
+        Integer[] keys = KeysReader.getIntegersFromFile("test_files/correctness/integers/test2_batchDelete_withBigNumbers.txt");
+        int res = hashTable.batchDelete(keys);
+        assert(res == 4);
+    }
 
 
 
