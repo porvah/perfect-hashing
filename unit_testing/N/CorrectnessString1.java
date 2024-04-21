@@ -1,6 +1,5 @@
 package N;
 
-import hash_tables.HashTableWithN2Space;
 import hash_tables.HashTableWithNSpace;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
