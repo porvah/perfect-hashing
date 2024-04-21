@@ -1,5 +1,7 @@
 package hash_tables;
 
+
+
 import java.util.*;
 public class Matrix {
     private int u;
@@ -7,7 +9,7 @@ public class Matrix {
     private int[][] matrix;
 
     public Matrix(int n) {
-        this.u = 64;
+        this.u = 160;
         this.b = (int) Math.ceil(Math.log((double) n) / Math.log(2.0));
         this.matrix = new int[b][u];
         this.generate();
@@ -24,9 +26,9 @@ public class Matrix {
 
     //return the index of the key in the hash table
     public int getIndex(Object key) {
-        int [] x = new int[64];
+        int [] x = new int[u];
         if (key instanceof String)
-            x = decimalToBinary(stringToInt((String)key));
+            return  binaryToDecimal(multiplication(stringToInt((String)key)));
         else if (key instanceof Character)
             x = decimalToBinary((long)(Character)key);
         else if (key instanceof Long)
@@ -34,24 +36,32 @@ public class Matrix {
         else if (key instanceof Integer)
             x = decimalToBinary((long)(Integer)key);
         else if (key instanceof Float)
-            x = decimalToBinary(stringToInt(Float.toString((Float)key)));
+            return binaryToDecimal(multiplication(stringToInt(Float.toString((Float)key))));
         else
-            x = decimalToBinary(stringToInt(String.valueOf((Double)key)));
+            return binaryToDecimal(multiplication(stringToInt(String.valueOf((Double)key))));
         return binaryToDecimal(multiplication(x));
     }
 
     //convert string to integer value
-    private long stringToInt(String key) {
-        long value = 0;
-        for (int i = 0; i < key.length(); i++) {
-            value += (long) key.charAt(i) * (i+1);
+    private int[] stringToInt(String key) {
+        int [] x = new int[u];
+        StringBuilder result = new StringBuilder();
+        char[] chars = key.toCharArray();
+        for (char aChar : chars) {
+            result.append(
+                    String.format("%8s", Integer.toBinaryString(aChar))
+                            .replaceAll(" ", "0")
+            );
         }
-        return value;
+        key = result.toString();
+        for (int i = 0; i < u; i++) x[i] = 0;
+        for(int i=0;i<key.length();i++) x[i] = key.charAt(i)-'0';
+        return x;
     }
     //convert decimal to binary using bitwise operations
     private int[] decimalToBinary(long key) {
-        int[] x = new int[64];
-        for (int i = 0; i < 64; i++) {
+        int[] x = new int[u];
+        for (int i = 0; i < u; i++) {
             long a = (long)1<<i;
             x[i] = (int) (((key&a) == 0) ? 0 : 1);
         }
@@ -59,7 +69,7 @@ public class Matrix {
     }
     //construct a matrix using bitwise operations to reduce the time complexity
     private int [] multiplication(int [] x){
-        int [] res = new int[64];
+        int [] res = new int[u];
         for(int i = 0;i < b;i++) {
             res[i] = 0;
             for (int j = 0; j < u; j++) {
