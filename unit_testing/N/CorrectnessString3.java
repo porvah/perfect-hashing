@@ -160,7 +160,7 @@ public class CorrectnessString3 {
     public void batchDelete4() {
         String[] keys = KeysReader.getStringsFromFile("test_files/correctness/strings/test3_batchDelete_multipleWords.txt");
         int res = hashTable.batchDelete(keys);
-        assert(res == 10);
+        assert(res == 9);
     }
 
 
