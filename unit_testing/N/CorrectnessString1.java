@@ -21,7 +21,6 @@ public class CorrectnessString1 {
     public void batchInsert() {
         HashTableWithNSpace<String> hashTable = new HashTableWithNSpace<>();
         int res = hashTable.batchInsert(keys);
-        System.out.println(res);
         assert(res == 10);
     }
 

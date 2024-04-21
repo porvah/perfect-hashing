@@ -21,7 +21,6 @@ public class CorrectnessInteger2 {
     public void batchInsert() {
         HashTableWithN2Space<Integer> hashTable = new HashTableWithN2Space<>();
         int res = hashTable.batchInsert(keys);
-        System.out.println(res);
         assert(res == 9);
     }
     @Test

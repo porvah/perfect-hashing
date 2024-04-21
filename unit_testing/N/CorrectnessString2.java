@@ -20,7 +20,6 @@ public class CorrectnessString2 {
     public void batchInsert() {
         HashTableWithNSpace<String> hashTable = new HashTableWithNSpace<>();
         int res = hashTable.batchInsert(keys);
-        System.out.println(res);
         assert(res == 10);
     }
 
@@ -54,6 +53,30 @@ public class CorrectnessString2 {
     }
 
 
+
+
+    @Test
+    public void insert1() {
+        String key = "abc";
+        assert(hashTable.insert(key));
+    }
+    @Test
+    public void insert2() {
+        String key = "Cat";
+        assert(hashTable.insert(key));
+    }
+    @Test
+    public void insert3() {
+        String key = "Fast";
+        assert(!hashTable.insert(key));
+    }
+    @Test
+    public void insert4() {
+        String key = "Sat";
+        assert(hashTable.insert(key));
+    }
+
+
     @Test
     public void delete1() {
         String key = "abc";
@@ -79,25 +102,34 @@ public class CorrectnessString2 {
         assert(!res);
     }
 
-    @Test
-    public void insert1() {
-        String key = "abc";
-        assert(hashTable.insert(key));
+    @Test void batchDelete1() {
+        String[] keys = new String[] {"abc", "cab", "xyz", "acbacb"};
+        int res = hashTable.batchDelete(keys);
+        assert(res == 2);
     }
-    @Test
-    public void insert2() {
-        String key = "Cat";
-        assert(hashTable.insert(key));
+
+    @Test void batchDelete2() {
+        String[] keys = new String[] {"abc", "cab", "acb"};
+        int res = hashTable.batchDelete(keys);
+        assert(res == 3);
     }
-    @Test
-    public void insert3() {
-        String key = "Fast";
-        assert(!hashTable.insert(key));
+
+    @Test void batchDelete3() {
+        String[] keys = new String[] {"abc", "abc", "abc", "acb"};
+        int res = hashTable.batchDelete(keys);
+        assert(res == 2);
     }
-    @Test
-    public void insert4() {
-        String key = "Sat";
-        assert(hashTable.insert(key));
+
+    @Test void batchDelete4() {
+        String[] keys = new String[] {"aaa", "bbb", "ccc", "ddd"};
+        int res = hashTable.batchDelete(keys);
+        assert(res == 0);
+    }
+
+    @Test void batchDelete5() {
+        String[] keys = KeysReader.getStringsFromFile("test_files/correctness/strings/test2_batchDelete_permuted.txt");
+        int res = hashTable.batchDelete(keys);
+        assert(res == 10);
     }
 
 
