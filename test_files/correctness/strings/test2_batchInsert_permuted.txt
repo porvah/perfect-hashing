@@ -1,5 +1,0 @@
-abc
-acb
-bac
-bca
-cab
