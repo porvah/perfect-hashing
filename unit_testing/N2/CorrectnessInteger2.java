@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import utils.AnalysisLogger;
 import utils.KeysReader;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CorrectnessInteger2 {
     HashTableWithN2Space<Integer> hashTable = new HashTableWithN2Space<>();
     Integer[] keys = KeysReader.getIntegersFromFile("test_files/correctness/integers/test2_batchInsert_withBigNumbers.txt");
@@ -19,7 +22,14 @@ public class CorrectnessInteger2 {
     @Test
     public void batchInsert() {
         HashTableWithN2Space<Integer> hashTable = new HashTableWithN2Space<>();
+        System.out.println(hashTable.getValues());
+        System.out.println(hashTable.getN());
         int res = hashTable.batchInsert(keys);
+        System.out.println(hashTable.getN());
+
+        System.out.println(List.of(keys));
+        System.out.println(hashTable.getValues());
+        System.out.println(res);
         assert(res == 9);
     }
     @Test

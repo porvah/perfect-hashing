@@ -161,7 +161,7 @@ public class HashTableWithN2Space<T> implements IHashTable{
             }
         }
         int elementsAfter = elements;
-        return noOfInserts - (elementsAfter - elementsBefore);
+        return elementsAfter - elementsBefore;
     }
 
     @Override
