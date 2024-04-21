@@ -9,11 +9,12 @@ import utils.KeysReader;
 
 public class CorrectnessString1 {
 
-    private final HashTableWithN2Space<String> hashTable = new HashTableWithN2Space<>();
+    private HashTableWithN2Space<String> hashTable = new HashTableWithN2Space<>();
     private final String[] keys = KeysReader.getStringsFromFile("test_files/correctness/strings/test1_batchInsert.txt");
 
     @BeforeEach
     public void batchInsertAll() {
+        hashTable = new HashTableWithN2Space<>();
         hashTable.batchInsert(keys);
     }
     @Test

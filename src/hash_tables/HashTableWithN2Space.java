@@ -115,7 +115,7 @@ public class HashTableWithN2Space<T> implements IHashTable{
     @Override
     public boolean delete(Object key) {
         int index = matrix.getIndex(key) % size;
-        if(table.get(index) != null){
+        if(table.get(index) != null && table.get(index).equals(key)){
             table.set(index, null);
             elements--;
             return true;

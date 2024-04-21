@@ -14,6 +14,7 @@ public class CorrectnessInteger3 {
 
     @BeforeEach
     public void batchInsertAll() {
+        hashTable = new HashTableWithN2Space<>();
         hashTable.batchInsert(keys);
     }
 
