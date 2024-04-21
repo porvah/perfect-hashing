@@ -1,7 +1,7 @@
 package dictionary;
 
 import hash_tables.IHashTable;
-import utils.StringsReader;
+import utils.KeysReader;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,7 +32,7 @@ public class Dictionary {
     }
 
     public int[] batchInsert(String fileName) {
-        String[] keys = StringsReader.getStringsFromFile(fileName);
+        String[] keys = KeysReader.getStringsFromFile(fileName);
         int total = keys.length;
         int successful = hashTable.batchInsert(keys);
         return new int[]{successful, total - successful};
@@ -40,7 +40,7 @@ public class Dictionary {
     }
 
     public int[] batchDelete(String fileName) {
-        String[] keys = StringsReader.getStringsFromFile(fileName);
+        String[] keys = KeysReader.getStringsFromFile(fileName);
         int total = keys.length;
         int successful = hashTable.batchDelete(keys);
         return new int[]{successful, total - successful};

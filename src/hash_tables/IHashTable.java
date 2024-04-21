@@ -9,4 +9,8 @@ public interface IHashTable<T> {
     int batchInsert(T[] keys);
 
     int batchDelete(T[] keys);
+
+    int getAllSpace();
+
+    int getHashCount();
 }

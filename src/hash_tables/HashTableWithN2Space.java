@@ -22,6 +22,7 @@ public class HashTableWithN2Space<T> implements IHashTable{
         hashCount = 1;
     }
     public int getSize(){ return size;}
+    public int getAllSpace() { return getSize();}
     public int getN(){return elements;}
     public int getHashCount(){ return hashCount;}
     @Override
