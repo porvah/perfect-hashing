@@ -24,7 +24,7 @@ public class DataCollector {
 
 
     static {
-        int count = 150;
+        int count = 260;
         searchCount = count * 4;
         insertCount = count * 4;
         deleteCount = count * 4;

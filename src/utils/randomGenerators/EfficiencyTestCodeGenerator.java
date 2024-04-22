@@ -140,7 +140,8 @@ public class EfficiencyTestCodeGenerator {
                             @AfterEach
                             public void printAnalysis() {
                                 time = System.nanoTime() - time;
-                                AnalysisLogger.addAnalysis(currentOperation, size,  type, hashTable.getAllSpace(), time);
+                                
+                                AnalysisLogger.addAnalysis(currentOperation, size,  type, hashTable.getAllSpace(), time, hashTable.getHashCount());
                                 AnalysisLogger.printAnalysis(hashTable);
                             }
 

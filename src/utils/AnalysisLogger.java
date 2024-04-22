@@ -32,8 +32,8 @@ public class AnalysisLogger {
     }
 
 
-    public static synchronized void addAnalysis(String operation, int size, String type, int space, long time) {
-        String content = type + "," + space + "," + time + "\n";
+    public static synchronized void addAnalysis(String operation, int size, String type, int space, long time, int numberOfRehashes) {
+        String content = size + "," + type + "," + space + "," + time + "," + numberOfRehashes + "\n";
         switch (operation) {
             case "search" -> {
                 DataCollector.addSearch(content);
