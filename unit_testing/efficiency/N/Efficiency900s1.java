@@ -18,14 +18,22 @@ public class Efficiency900s1{
     Integer[] keys2 = KeysReader.getIntegersFromFile("test_files/efficiency/900s2.txt");
 
 
+    private long time;
+
+    private final String type = "N";
+    private final int size = 900;
+    private String currentOperation;
     @BeforeEach
     public void batchInsertAll() {
         hashTable.batchInsert(keys1);
+        time = System.nanoTime();
     }
 
 
     @Test
     public void batchInsert() {
+
+        currentOperation = "batchInsert";
         HashTableWithNSpace<Integer> hashTable = new HashTableWithNSpace<>();
         int res = hashTable.batchInsert(keys1);
 
@@ -34,62 +42,71 @@ public class Efficiency900s1{
 
     @Test
     public void testSearch1() {
-        Integer key = -8132;
+        currentOperation = "search";
+        Integer key = 3488;
         boolean res = hashTable.search(key);
         assert (!res);
     }
 
     @Test
     public void testSearch2() {
-        Integer key = 4410;
+        currentOperation = "search";
+        Integer key = 668;
         boolean res = hashTable.search(key);
-        assert (res);
+        assert (!res);
     }
 
     @Test
     public void testSearch3() {
-        Integer key = 5828;
+        currentOperation = "search";
+        Integer key = 5488;
         boolean res = hashTable.search(key);
         assert (!res);
     }
 
     @Test
     public void testSearch4() {
-        Integer key = 8716;
+        currentOperation = "search";
+        Integer key = -380;
         boolean res = hashTable.search(key);
         assert (!res);
     }
 
     @Test
     public void insert1() {
-        int key = -8132;
+        currentOperation = "insert";
+        int key = 3488;
         boolean res = hashTable.insert(key);
         assert (res);
     }
 
     @Test
     public void insert2() {
-        int key = 4410;
+        currentOperation = "insert";
+        int key = 668;
         boolean res = hashTable.insert(key);
-        assert (!res);
+        assert (res);
     }
 
     @Test
     public void insert3() {
-        int key = 5828;
+        currentOperation = "insert";
+        int key = 5488;
         boolean res = hashTable.insert(key);
         assert (res);
     }
 
     @Test
     public void insert4() {
-        int key = 8716;
+        currentOperation = "insert";
+        int key = -380;
         boolean res = hashTable.insert(key);
         assert (res);
     }
 
     @Test
     public void batchInsert2() {
+       currentOperation = "batchInsert";
         int res = hashTable.batchInsert(keys2);
 
         assert(res == 864);
@@ -97,34 +114,39 @@ public class Efficiency900s1{
 
     @Test
     public void delete1() {
-        int key = -8132;
+        currentOperation = "delete";
+        int key = 3488;
         boolean res = hashTable.delete(key);
         assert (!res);
     }
 
     @Test
     public void delete2() {
-        int key = 4410;
+        currentOperation = "delete";
+        int key = 668;
         boolean res = hashTable.delete(key);
-        assert (res);
+        assert (!res);
     }
 
     @Test
     public void delete3() {
-        int key = 5828;
+        currentOperation = "delete";
+        int key = 5488;
         boolean res = hashTable.delete(key);
         assert (!res);
     }
 
     @Test
     public void delete4() {
-        int key = 8716;
+        currentOperation = "delete";
+        int key = -380;
         boolean res = hashTable.delete(key);
         assert (!res);
     }
 
     @Test
     public void batchDeleteAll() {
+        currentOperation = "batchDelete";
         int res = hashTable.batchDelete(keys1);
 
         assert(res == 900);
@@ -132,6 +154,7 @@ public class Efficiency900s1{
 
     @Test
     public void batchDelete2() {
+        currentOperation = "batchDelete";
         int res = hashTable.batchDelete(keys2);
 
         assert(res == 36);
@@ -139,7 +162,8 @@ public class Efficiency900s1{
 
     @AfterEach
     public void printAnalysis() {
-        AnalysisLogger.printAnalysis(hashTable);
+        time = System.nanoTime() - time;
+        AnalysisLogger.addAnalysis(currentOperation, size,  type, hashTable.getAllSpace(), time);
     }
 
 

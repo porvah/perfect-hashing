@@ -2,6 +2,7 @@ package utils.randomGenerators;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 
 public class InputAndTestCodeGeneratorScript {
 
@@ -30,10 +31,17 @@ public class InputAndTestCodeGeneratorScript {
     }
 
     public static void generateTests() {
+
+
         for (int size : sizes) {
+            int[] params = new int[4];
+            Random random = new Random();
+            for(int i = 0; i < 4; i++) {
+                params[i] = -10*size +2*random.nextInt(10*size);
+            }
             for (int order = 1; order <= numberOfTestsPerSize; order++) {
                 for (String type : types) {
-                    EfficiencyTestCodeGenerator.generateTest_Java(size, order, type);
+                    EfficiencyTestCodeGenerator.generateTest_Java(size, order, type, params);
                 }
             }
         }
