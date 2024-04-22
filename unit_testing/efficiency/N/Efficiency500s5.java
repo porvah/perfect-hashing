@@ -15,7 +15,7 @@ import java.util.Set;
 public class Efficiency500s5{
     HashTableWithNSpace<Integer> hashTable = new HashTableWithNSpace<>();
     Integer[] keys1 = KeysReader.getIntegersFromFile("test_files/efficiency/500s5.txt");
-    Integer[] keys2 = KeysReader.getIntegersFromFile("test_files/efficiency/500s1.txt");
+    Integer[] keys2 = KeysReader.getIntegersFromFile("test_files/efficiency/500s6.txt");
 
 
     @BeforeEach
@@ -34,56 +34,56 @@ public class Efficiency500s5{
 
     @Test
     public void testSearch1() {
-        Integer key = -2410;
+        Integer key = -428;
         boolean res = hashTable.search(key);
         assert (!res);
     }
 
     @Test
     public void testSearch2() {
-        Integer key = -4956;
+        Integer key = -3936;
         boolean res = hashTable.search(key);
         assert (!res);
     }
 
     @Test
     public void testSearch3() {
-        Integer key = -3296;
+        Integer key = 3112;
         boolean res = hashTable.search(key);
         assert (!res);
     }
 
     @Test
     public void testSearch4() {
-        Integer key = -3948;
+        Integer key = -2438;
         boolean res = hashTable.search(key);
         assert (!res);
     }
 
     @Test
     public void insert1() {
-        int key = -2410;
+        int key = -428;
         boolean res = hashTable.insert(key);
         assert (res);
     }
 
     @Test
     public void insert2() {
-        int key = -4956;
+        int key = -3936;
         boolean res = hashTable.insert(key);
         assert (res);
     }
 
     @Test
     public void insert3() {
-        int key = -3296;
+        int key = 3112;
         boolean res = hashTable.insert(key);
         assert (res);
     }
 
     @Test
     public void insert4() {
-        int key = -3948;
+        int key = -2438;
         boolean res = hashTable.insert(key);
         assert (res);
     }
@@ -92,33 +92,33 @@ public class Efficiency500s5{
     public void batchInsert2() {
         int res = hashTable.batchInsert(keys2);
 
-        assert(res == 471);
+        assert(res == 470);
     }
 
     @Test
     public void delete1() {
-        int key = -2410;
+        int key = -428;
         boolean res = hashTable.delete(key);
         assert (!res);
     }
 
     @Test
     public void delete2() {
-        int key = -4956;
+        int key = -3936;
         boolean res = hashTable.delete(key);
         assert (!res);
     }
 
     @Test
     public void delete3() {
-        int key = -3296;
+        int key = 3112;
         boolean res = hashTable.delete(key);
         assert (!res);
     }
 
     @Test
     public void delete4() {
-        int key = -3948;
+        int key = -2438;
         boolean res = hashTable.delete(key);
         assert (!res);
     }
@@ -134,7 +134,7 @@ public class Efficiency500s5{
     public void batchDelete2() {
         int res = hashTable.batchDelete(keys2);
 
-        assert(res == 29);
+        assert(res == 30);
     }
 
     @AfterEach

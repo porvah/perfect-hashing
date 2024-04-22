@@ -34,56 +34,56 @@ public class Efficiency1000s1{
 
     @Test
     public void testSearch1() {
-        Integer key = -168;
+        Integer key = 5946;
         boolean res = hashTable.search(key);
         assert (!res);
     }
 
     @Test
     public void testSearch2() {
-        Integer key = 1566;
+        Integer key = 410;
         boolean res = hashTable.search(key);
         assert (!res);
     }
 
     @Test
     public void testSearch3() {
-        Integer key = 5878;
+        Integer key = 2856;
         boolean res = hashTable.search(key);
         assert (!res);
     }
 
     @Test
     public void testSearch4() {
-        Integer key = 8032;
+        Integer key = 8480;
         boolean res = hashTable.search(key);
         assert (!res);
     }
 
     @Test
     public void insert1() {
-        int key = -168;
+        int key = 5946;
         boolean res = hashTable.insert(key);
         assert (res);
     }
 
     @Test
     public void insert2() {
-        int key = 1566;
+        int key = 410;
         boolean res = hashTable.insert(key);
         assert (res);
     }
 
     @Test
     public void insert3() {
-        int key = 5878;
+        int key = 2856;
         boolean res = hashTable.insert(key);
         assert (res);
     }
 
     @Test
     public void insert4() {
-        int key = 8032;
+        int key = 8480;
         boolean res = hashTable.insert(key);
         assert (res);
     }
@@ -97,28 +97,28 @@ public class Efficiency1000s1{
 
     @Test
     public void delete1() {
-        int key = -168;
+        int key = 5946;
         boolean res = hashTable.delete(key);
         assert (!res);
     }
 
     @Test
     public void delete2() {
-        int key = 1566;
+        int key = 410;
         boolean res = hashTable.delete(key);
         assert (!res);
     }
 
     @Test
     public void delete3() {
-        int key = 5878;
+        int key = 2856;
         boolean res = hashTable.delete(key);
         assert (!res);
     }
 
     @Test
     public void delete4() {
-        int key = 8032;
+        int key = 8480;
         boolean res = hashTable.delete(key);
         assert (!res);
     }

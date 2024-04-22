@@ -14,7 +14,7 @@ public class EfficiencyTestCodeGenerator {
 
     public static void generateTest_Java(int size, int order, String type) {
         Integer[] keys1 = KeysReader.getIntegersFromFile("test_files/efficiency/"+size+"s"+order+".txt");
-        Integer[] keys2 = KeysReader.getIntegersFromFile("test_files/efficiency/"+size+"s"+((order)%5+1) + ".txt");
+        Integer[] keys2 = KeysReader.getIntegersFromFile("test_files/efficiency/"+size+"s"+((order)%InputAndTestCodeGeneratorScript.numberOfTestsPerSize+1) + ".txt");
 
         Set<Integer> st1 = new HashSet<>(), st2 = new HashSet<>();
         for(Integer integer : keys1)st1.add(integer);
@@ -58,7 +58,7 @@ public class EfficiencyTestCodeGenerator {
                 "public class Efficiency"+size+"s"+order+ "{\n" +
                 "    HashTableWith"+type+"Space<Integer> hashTable = new HashTableWith"+type+"Space<>();\n" +
                 "    Integer[] keys1 = KeysReader.getIntegersFromFile(\"test_files/efficiency/"+size+"s"+order+".txt"+"\");\n" +
-                "    Integer[] keys2 = KeysReader.getIntegersFromFile(\"test_files/efficiency/"+size+"s"+((order)%5+1)+".txt"+"\");\n" +
+                "    Integer[] keys2 = KeysReader.getIntegersFromFile(\"test_files/efficiency/"+size+"s"+((order)%InputAndTestCodeGeneratorScript.numberOfTestsPerSize+1)+".txt"+"\");\n" +
                 "\n" +
                 "\n" +
                 "    @BeforeEach\n" +
