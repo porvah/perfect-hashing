@@ -5,7 +5,6 @@ import utils.KeysReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -137,14 +136,17 @@ public class EfficiencyTestCodeGenerator {
                 "    }\n" +
                 "\n";
         toBeWritten +=
-                "    @AfterEach\n" +
-                "    public void printAnalysis() {\n" +
-                "        time = System.nanoTime() - time;\n" +
-                "        AnalysisLogger.addAnalysis(currentOperation, size,  type, hashTable.getAllSpace(), time);\n" +
-                "    }\n" +
-                "\n" +
-                "\n" +
-                "}\n";
+                """
+                            @AfterEach
+                            public void printAnalysis() {
+                                time = System.nanoTime() - time;
+                                AnalysisLogger.addAnalysis(currentOperation, size,  type, hashTable.getAllSpace(), time);
+                                AnalysisLogger.printAnalysis(hashTable);
+                            }
+
+
+                        }
+                        """;
         try {
             FileWriter fileWriter = new FileWriter("unit_testing/efficiency/"+type+"/Efficiency"+size + "s"+order+".java");
             fileWriter.write(toBeWritten);

@@ -43,7 +43,7 @@ public class Efficiency50000s6{
     @Test
     public void testSearch1() {
         currentOperation = "search";
-        Integer key = -417806;
+        Integer key = -249988;
         boolean res = hashTable.search(key);
         assert (!res);
     }
@@ -51,7 +51,7 @@ public class Efficiency50000s6{
     @Test
     public void testSearch2() {
         currentOperation = "search";
-        Integer key = -336500;
+        Integer key = 73092;
         boolean res = hashTable.search(key);
         assert (!res);
     }
@@ -59,7 +59,7 @@ public class Efficiency50000s6{
     @Test
     public void testSearch3() {
         currentOperation = "search";
-        Integer key = 100330;
+        Integer key = 213910;
         boolean res = hashTable.search(key);
         assert (!res);
     }
@@ -67,7 +67,7 @@ public class Efficiency50000s6{
     @Test
     public void testSearch4() {
         currentOperation = "search";
-        Integer key = 472746;
+        Integer key = -261760;
         boolean res = hashTable.search(key);
         assert (!res);
     }
@@ -75,7 +75,7 @@ public class Efficiency50000s6{
     @Test
     public void insert1() {
         currentOperation = "insert";
-        int key = -417806;
+        int key = -249988;
         boolean res = hashTable.insert(key);
         assert (res);
     }
@@ -83,7 +83,7 @@ public class Efficiency50000s6{
     @Test
     public void insert2() {
         currentOperation = "insert";
-        int key = -336500;
+        int key = 73092;
         boolean res = hashTable.insert(key);
         assert (res);
     }
@@ -91,7 +91,7 @@ public class Efficiency50000s6{
     @Test
     public void insert3() {
         currentOperation = "insert";
-        int key = 100330;
+        int key = 213910;
         boolean res = hashTable.insert(key);
         assert (res);
     }
@@ -99,7 +99,7 @@ public class Efficiency50000s6{
     @Test
     public void insert4() {
         currentOperation = "insert";
-        int key = 472746;
+        int key = -261760;
         boolean res = hashTable.insert(key);
         assert (res);
     }
@@ -115,7 +115,7 @@ public class Efficiency50000s6{
     @Test
     public void delete1() {
         currentOperation = "delete";
-        int key = -417806;
+        int key = -249988;
         boolean res = hashTable.delete(key);
         assert (!res);
     }
@@ -123,7 +123,7 @@ public class Efficiency50000s6{
     @Test
     public void delete2() {
         currentOperation = "delete";
-        int key = -336500;
+        int key = 73092;
         boolean res = hashTable.delete(key);
         assert (!res);
     }
@@ -131,7 +131,7 @@ public class Efficiency50000s6{
     @Test
     public void delete3() {
         currentOperation = "delete";
-        int key = 100330;
+        int key = 213910;
         boolean res = hashTable.delete(key);
         assert (!res);
     }
@@ -139,7 +139,7 @@ public class Efficiency50000s6{
     @Test
     public void delete4() {
         currentOperation = "delete";
-        int key = 472746;
+        int key = -261760;
         boolean res = hashTable.delete(key);
         assert (!res);
     }
@@ -164,6 +164,7 @@ public class Efficiency50000s6{
     public void printAnalysis() {
         time = System.nanoTime() - time;
         AnalysisLogger.addAnalysis(currentOperation, size,  type, hashTable.getAllSpace(), time);
+        AnalysisLogger.printAnalysis(hashTable);
     }
 
 
