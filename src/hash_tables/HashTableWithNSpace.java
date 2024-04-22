@@ -22,14 +22,14 @@ public class HashTableWithNSpace<T> implements IHashTable<T> {
     @Override
     public boolean insert(Object key) {
         int index = matrix.getIndex(key) % max_size;
-        if (table[index] == null) {
-            cur_size++;
+        if (table[index] == null)
             table[index] = new HashTableWithN2Space<>();
-        }
 
         hash_count -= table[index].hashCount;
         boolean res = table[index].insert(key);
         hash_count += table[index].hashCount;
+        if (res)
+            cur_size++;
 
         if (needs_to_rehash())
             hash(getValues().toArray());
@@ -61,8 +61,8 @@ public class HashTableWithNSpace<T> implements IHashTable<T> {
 
         hash(values.toArray());
 
-        int unique_values = getValues().size();
-        return keys.length - (values.size() - unique_values);
+        cur_size = getValues().size();
+        return keys.length - (values.size() - cur_size);
     }
 
     @Override
@@ -72,6 +72,23 @@ public class HashTableWithNSpace<T> implements IHashTable<T> {
             if (delete(key))
                 deleted_items++;
         return deleted_items;
+    }
+
+    public int getCurSize() {
+        return cur_size;
+    }
+
+    public int getHashCount() {
+        return hash_count;
+    }
+
+    public int getAllSpace() {
+        int size = max_size;
+        for (int i = 0; i < max_size; ++i) {
+            if (table[i] != null)
+                size += table[i].getSize();
+        }
+        return size;
     }
 
     private ArrayList<T> getValues() {
@@ -100,10 +117,10 @@ public class HashTableWithNSpace<T> implements IHashTable<T> {
 
         for (int i = 0; i < max_size; ++i) {
             if (freq_arr[i] != null) {
-                cur_size++;
                 Object[] cur_arr = freq_arr[i].toArray();
                 table[i] = new HashTableWithN2Space<>();
                 table[i].batchInsert(cur_arr);
+                cur_size += table[i].getN();
                 hash_count += table[i].hashCount;
             }
         }

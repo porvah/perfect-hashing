@@ -22,6 +22,7 @@ public class HashTableWithN2Space<T> implements IHashTable{
         hashCount = 1;
     }
     public int getSize(){ return size;}
+    public int getAllSpace() { return getSize();}
     public int getN(){return elements;}
     public int getHashCount(){ return hashCount;}
     @Override
@@ -114,7 +115,7 @@ public class HashTableWithN2Space<T> implements IHashTable{
     @Override
     public boolean delete(Object key) {
         int index = matrix.getIndex(key) % size;
-        if(table.get(index) != null){
+        if(table.get(index) != null && table.get(index).equals(key)){
             table.set(index, null);
             elements--;
             return true;
@@ -160,7 +161,7 @@ public class HashTableWithN2Space<T> implements IHashTable{
             }
         }
         int elementsAfter = elements;
-        return noOfInserts - (elementsAfter - elementsBefore);
+        return elementsAfter - elementsBefore;
     }
 
     @Override
